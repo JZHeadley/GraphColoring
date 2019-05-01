@@ -109,7 +109,8 @@ map<int, NodeInfo> assignWeights(map<int, NodeInfo> g) {
 }
 
 bool compareByDegree(const NodeInfo &a, const NodeInfo &b) {
-    return a.adj.size() < b.adj.size();
+    // printf("a has %i neighbors b has %i neighbors\n",a.adj.size(),b.adj.size());
+    return a.adj.size() > b.adj.size();
 }
 
 map<int, NodeInfo> jonesPlassmann(map<int, NodeInfo> g, int numNodes) {
@@ -119,6 +120,7 @@ map<int, NodeInfo> jonesPlassmann(map<int, NodeInfo> g, int numNodes) {
         nodes.push_back(u[i]);
     }
     sort(nodes.begin(), nodes.end(), compareByDegree);
+    printf("max degree is %i\n",nodes[0].adj.size());
 //#pragma omp parallel for
     for (int i = 0; i < numNodes; i++) {
         vector<int> neighbors = u[i].adj;
